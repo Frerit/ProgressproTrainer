@@ -25,6 +25,7 @@ dependencies:
   supabase_flutter: ^1.10.21
   cupertino_icons: ^1.0.6
 
+
   # Dependencias
   progress_desing:
     git: https://dev.azure.com/erilaz/ProgressPro/_git/progresspro.desing
