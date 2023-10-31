@@ -9,29 +9,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  version:
-    name: Create version number
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v0.9.7
-        with:
-          versionSpec: "5.x"
-      - name: Use GitVersion
-        id: gitversion
-        uses: gittools/actions/gitversion/execute@v0.9.7
-      - name: Create version.txt with nuGetVersion
-        run: echo ${{ steps.gitversion.outputs.nuGetVersion  }} > version.txt
-      - name: Upload version.txt
-        uses: actions/upload-artifact@v2
-        with:
-          name: gitversion
-          path: version.txt
-
   build:
-    name: Create Android Build
-    needs: version
+    name: Create Android Build 
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -97,7 +76,7 @@ jobs:
       uses: r0adkll/upload-google-play@v1
       with:
         serviceAccountJsonPlainText: ${{ secrets.PLAYSTORE_ACCOUNT_KEY }}
-        packageName: <YOUR_PACKAGE_NAME>
+        packageName: com.progresspro.trainer
         releaseFiles: app-release.aab
         track: alpha
         status: completed
