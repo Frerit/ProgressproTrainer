@@ -7,12 +7,22 @@ on:
     branches: [ "master" ]
 
   workflow_dispatch:
-
+ 
 jobs:
   build:
     name: Create Android Build 
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.platform }}
     steps:
+      - name: Build Android bundle
+        uses: AcmeSoftwareLLC/flutter-build@v1
+        with:
+          platform: android
+          build-name: 1.0.0
+          build-number: 20231005
+          dart-define-file: configs/.env.production
       - name: Get dependencies
         run: flutter pub get
 
