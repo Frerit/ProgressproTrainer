@@ -16,13 +16,15 @@ jobs:
         platform: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.platform }}
     steps:
-      - name: Build Android bundle
-        uses: AcmeSoftwareLLC/flutter-build@v1
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+
+      - name: Setup Flutter SDK
+        uses: flutter-actions/setup-flutter@v2
         with:
-          platform: android
-          build-name: 1.0.0
-          build-number: 20231005
-          dart-define-file: configs/.env.production
+          channel: stable
+          version: 3.0.2
+          
       - name: Get dependencies
         run: flutter pub get
 
